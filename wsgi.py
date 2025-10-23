@@ -1,4 +1,4 @@
-import click
+import pytest, sys, click
 from flask.cli import AppGroup
 from App.main import create_app
 from App.database import db, get_migrate
@@ -149,150 +149,26 @@ def init():
         db.session.commit()
     print("Database initialized with default users")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'''
+Testing Commands
+'''
+
+test_cli = AppGroup('test', help="test commands for all objects")
+
+@test_cli.cli.command("staff", help="Run Staff tests")
+def user_tests_command():
+        sys.exit(pytest.main(["-k", "User"]))
+
+@test_cli.cli.command("shift", help="Run Shift tests")
+def user_tests_command():
+        sys.exit(pytest.main(["-k", "User"]))
+    
+@test_cli.cli.command("timeentry", help="Run TimeEntry tests")
+def user_tests_command():
+        sys.exit(pytest.main(["-k", "User"]))
+
+@test_cli.cli.command("user", help="Run User tests")
+def user_tests_command():
+        sys.exit(pytest.main(["-k", "User"]))
+
+app.cli.add_command(test_cli) # adds group to cli
